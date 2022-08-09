@@ -4,30 +4,36 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {UITagHeader} from './index';
 import {StoreShope} from '../screens';
+import {useNavigation} from '@react-navigation/native';
 
 const UIHeader = props => {
-  const {onPressZero, onPressOne, iconTwo} = props;
+  const navigation = useNavigation();
+  const {onPressZero, onPressOne, iconTwo, iconadjust, title, colorOfWoman} =
+    props;
   const [tagOptions, setTagOptions] = useState([
     {
+      id: 1,
       name: 'Advice',
       isSelected: false,
     },
     {
+      id: 2,
       name: 'Recent',
       isSelected: false,
     },
     {
+      id: 3,
       name: 'Popular',
       isSelected: true,
     },
   ]);
 
-  const [hintCloss, setHintCloss] = useState(true);
   const [hintOptions, setHintOptions] = useState(true);
 
   const [color, setColor] = useState('#78bef6');
@@ -37,12 +43,13 @@ const UIHeader = props => {
   const closeModal = () => {
     setVisiblely(false);
   };
+
   return (
     <View style={{}}>
       <View
         style={{
           height: 55,
-          backgroundColor: color,
+          backgroundColor: colorOfWoman == 'Woman' ? '#477572' : color,
           flexDirection: 'row',
         }}>
         <TouchableOpacity
@@ -52,7 +59,7 @@ const UIHeader = props => {
             paddingHorizontal: 15,
           }}
           onPress={onPressZero}>
-          <Icon name="bars" size={25} color="#497a92" />
+          <Icon name="bars" size={25} color="#2f2f2f" />
         </TouchableOpacity>
         <View
           style={{
@@ -66,7 +73,7 @@ const UIHeader = props => {
               color: '#fff',
               fontWeight: 'bold',
             }}>
-            ecoKaiwin
+            {title}
           </Text>
         </View>
 
@@ -79,25 +86,45 @@ const UIHeader = props => {
           onPress={() => {
             setVisiblely(true);
           }}>
-          <Icon name={iconTwo} size={24} color="#497a92" />
+          <Icon name="shopping-cart" size={24} color="#2f2f2f" />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingStart: 8,
-            paddingEnd: 16,
-          }}
-          onPress={() => {
-            setHintOptions(!hintOptions);
-            if (hintOptions == true) {
-              setColorTag('#ffffff');
-            } else if (hintOptions == false) {
-              setColorTag('#497a92');
-            }
-          }}>
-          <Icon name="tags" size={24} color={colorTag} />
-        </TouchableOpacity>
+        {iconadjust != undefined && (
+          <TouchableOpacity
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingHorizontal: 13,
+            }}
+            onPress={() => {}}>
+            <Image
+              source={iconadjust}
+              style={{
+                height: 24,
+                width: 24,
+                tintColor: '#2f2f2f',
+              }}
+            />
+          </TouchableOpacity>
+        )}
+        {iconadjust == undefined && (
+          <TouchableOpacity
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingStart: 8,
+              paddingEnd: 16,
+            }}
+            onPress={() => {
+              setHintOptions(!hintOptions);
+              if (hintOptions == true) {
+                setColorTag('#ffffff');
+              } else if (hintOptions == false) {
+                setColorTag('#497a92');
+              }
+            }}>
+            <Icon name="tags" size={24} color={colorTag} />
+          </TouchableOpacity>
+        )}
       </View>
       {hintOptions == false && (
         <View
@@ -121,6 +148,9 @@ const UIHeader = props => {
                   };
                 });
                 setTagOptions(newTagOption);
+                if (tagOption.id == 1) {
+                  navigation.navigate('AdviceAll');
+                }
               }}
             />
           ))}

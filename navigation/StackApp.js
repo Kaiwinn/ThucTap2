@@ -9,10 +9,14 @@ import {
   BagsAndAccessory,
   Account,
   Settings,
+  AdviceAll,
+  Woman,
 } from '../screens/index';
 import App from '../App';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {DrawerContents} from '../contents';
+
+import {UIHeader} from '../components';
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +36,9 @@ const StackApp = () => {
         <Drawer.Screen name="BagsAndAccessory" component={BagsAndAccessory} />
         <Drawer.Screen name="Account" component={Account} />
         <Drawer.Screen name="Settings" component={Settings} />
+        <Drawer.Screen name="AdviceAll" component={AdviceAll} />
+        <Drawer.Screen name="UIHeader" component={UIHeader} />
+        <Drawer.Screen name="Woman" component={Woman} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

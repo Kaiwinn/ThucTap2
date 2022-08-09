@@ -85,7 +85,14 @@ const DrawerContents = props => {
         flex: 1,
       }}>
       {/* <UIProfileDrawer /> */}
-      <UIHeadManOrWoman />
+      <UIHeadManOrWoman
+        onPressMan={() => {
+          alert('man');
+        }}
+        onPressWoman={() => {
+          navigate('Woman');
+        }}
+      />
       <DrawerContentScrollView style={{}}>
         {typeButtons.map(typeButton => (
           <UIItemDrawer

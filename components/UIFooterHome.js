@@ -32,7 +32,7 @@ const UIFooterHome = () => {
           <View
             style={{
               position: 'absolute',
-              right: -70,
+              right: -93,
               top: 90,
             }}>
             <Text
@@ -59,7 +59,7 @@ const UIFooterHome = () => {
               backgroundColor: '#bb9af0',
               borderRadius: 3,
               position: 'absolute',
-              right: -70,
+              right: -80,
               bottom: 60,
               alignItems: 'center',
               justifyContent: 'center',

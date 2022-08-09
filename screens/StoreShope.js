@@ -11,6 +11,7 @@ import React, {useState, useEffect} from 'react';
 import {UIFooterHome, UIHeader, ProductStore} from '../components/index';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {images} from '../constants';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 const StoreShope = props => {
   const [listProduct, setListProduct] = useState([
     {
@@ -48,138 +49,152 @@ const StoreShope = props => {
 
   return (
     <Modal transparent visible={visible}>
-      <View
-        style={{
-          backgroundColor: 'rgba(38,38,38,0.3)',
-          flex: 1,
-        }}>
+      <GestureHandlerRootView style={{flex: 1}}>
         <View
           style={{
-            backgroundColor: '#f6846a',
-            flex: 0.83,
-            elevation: 3,
+            backgroundColor: 'rgba(38,38,38,0.3)',
+            flex: 1,
           }}>
-          <View>
+          <View
+            style={{
+              backgroundColor: '#f6846a',
+              flex: 0.83,
+              elevation: 3,
+            }}>
+            <View>
+              <View
+                style={{
+                  height: 55,
+                  backgroundColor: color,
+                  flexDirection: 'row',
+                }}>
+                <TouchableOpacity
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingHorizontal: 15,
+                  }}
+                  onPress={() => {}}>
+                  <Icon name="bars" size={25} color="#36494f" />
+                </TouchableOpacity>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    marginStart: 20,
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: '#fff',
+                      fontWeight: 'bold',
+                    }}>
+                    Your Cart
+                  </Text>
+                </View>
+
+                <TouchableOpacity
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingHorizontal: 13,
+                  }}
+                  onPress={() => closeModal()}>
+                  <Icon name="close" size={24} color="#36494f" />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingStart: 8,
+                    paddingEnd: 16,
+                  }}
+                  onPress={() => {
+                    // setHintOptions(!hintOptions);
+                    // if (hintOptions == true) {
+                    //   setColorTag('#ffffff');
+                    // } else if (hintOptions == false) {
+                    //   setColorTag('#497a92');
+                    // }
+                  }}>
+                  <Icon name="tags" size={24} color={colorTag} />
+                </TouchableOpacity>
+              </View>
+            </View>
             <View
               style={{
-                height: 55,
-                backgroundColor: color,
-                flexDirection: 'row',
+                flex: 1,
+                paddingHorizontal: 20,
               }}>
-              <TouchableOpacity
+              {listProduct.map(product => (
+                <ProductStore
+                  products={product}
+                  key={product.id}
+                  id={product.id}
+                  image={product.image}
+                  name={product.name}
+                  size={product.size}
+                  price={product.price}
+                />
+              ))}
+            </View>
+            <View
+              style={{
+                marginTop: 18,
+                height: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text
                 style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  paddingHorizontal: 15,
-                }}
-                onPress={() => {}}>
-                <Icon name="bars" size={25} color="#36494f" />
-              </TouchableOpacity>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  marginStart: 20,
+                  fontSize: 18,
+                  color: 'white',
+                  fontWeight: '700',
                 }}>
-                <Text
+                $ 300,00
+              </Text>
+            </View>
+            <View
+              style={{
+                height: 100,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <TouchableWithoutFeedback onPress={() => {}}>
+                <View
                   style={{
-                    fontSize: 16,
-                    color: '#fff',
-                    fontWeight: 'bold',
+                    height: 45,
+                    width: 180,
+                    backgroundColor: '#36494f',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 2,
+                    elevation: 2,
                   }}>
-                  Your Cart
-                </Text>
-              </View>
-
-              <TouchableOpacity
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  paddingHorizontal: 13,
-                }}
-                onPress={() => closeModal()}>
-                <Icon name="close" size={24} color="#36494f" />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  paddingStart: 8,
-                  paddingEnd: 16,
-                }}
-                onPress={() => {
-                  // setHintOptions(!hintOptions);
-                  // if (hintOptions == true) {
-                  //   setColorTag('#ffffff');
-                  // } else if (hintOptions == false) {
-                  //   setColorTag('#497a92');
-                  // }
-                }}>
-                <Icon name="tags" size={24} color={colorTag} />
-              </TouchableOpacity>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontSize: 16,
+                      fontWeight: '500',
+                    }}>
+                    Proceed to checkout
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
             </View>
           </View>
-          <View
-            style={{
-              flex: 1,
+          <TouchableWithoutFeedback
+            onPress={() => {
+              closeModal();
             }}>
-            {listProduct.map(product => (
-              <ProductStore
-                key={product.id}
-                image={product.image}
-                name={product.name}
-                size={product.size}
-                price={product.price}
-              />
-            ))}
-          </View>
-          <View
-            style={{
-              marginTop: 18,
-              height: 30,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text
+            <View
               style={{
-                fontSize: 18,
-                color: 'white',
-                fontWeight: '700',
-              }}>
-              $ 300,00
-            </Text>
-          </View>
-          <View
-            style={{
-              height: 100,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <TouchableWithoutFeedback onPress={() => {}}>
-              <View
-                style={{
-                  height: 45,
-                  width: 180,
-                  backgroundColor: '#36494f',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 2,
-                  elevation: 2,
-                }}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontSize: 16,
-                    fontWeight: '500',
-                  }}>
-                  Proceed to checkout
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
-          </View>
+                flex: 0.17,
+              }}></View>
+          </TouchableWithoutFeedback>
         </View>
-      </View>
+      </GestureHandlerRootView>
     </Modal>
   );
 };

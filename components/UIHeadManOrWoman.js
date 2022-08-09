@@ -1,7 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 
-const UIHeadManOrWoman = () => {
+const UIHeadManOrWoman = props => {
+  const {onPressMan, onPressWoman} = props;
   return (
     <View
       style={{
@@ -32,44 +33,49 @@ const UIHeadManOrWoman = () => {
           marginHorizontal: 20,
           flex: 1,
         }}>
-        <View
-          style={{
-            height: 33,
-            width: 115,
-            backgroundColor: '#374b55',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 1,
-            elevation: 1,
-          }}>
-          <Text
+        <TouchableOpacity onPress={onPressMan}>
+          <View
             style={{
-              fontWeight: 'bold',
-              fontSize: 15,
-              color: 'white',
+              height: 33,
+              width: 115,
+              backgroundColor: '#374b55',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 1,
+              elevation: 1,
             }}>
-            Man
-          </Text>
-        </View>
-        <View
-          style={{
-            height: 33,
-            width: 115,
-            backgroundColor: '#374b55',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 1,
-            elevation: 1,
-          }}>
-          <Text
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 15,
+                color: 'white',
+              }}>
+              Man
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={onPressWoman}>
+          <View
             style={{
-              fontWeight: 'bold',
-              fontSize: 15,
-              color: 'white',
+              height: 33,
+              width: 115,
+              backgroundColor: '#374b55',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 1,
+              elevation: 1,
             }}>
-            Woman
-          </Text>
-        </View>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 15,
+                color: 'white',
+              }}>
+              Woman
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

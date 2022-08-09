@@ -5,6 +5,8 @@ import Sports from './Sports';
 import BagsAndAccessory from './BagsAndAccessory';
 import Account from './Account';
 import Settings from './Settings';
+import AdviceAll from './AdviceAll';
+import Woman from './Woman';
 
 export {
   StoreShope,
@@ -14,4 +16,6 @@ export {
   BagsAndAccessory,
   Account,
   Settings,
+  AdviceAll,
+  Woman,
 };

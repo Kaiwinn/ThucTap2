@@ -25,19 +25,23 @@ const App = props => {
         backgroundColor: '#f1f3f3',
       }}>
       <UIHeader
+        title="ecoKaiwin"
         onPressZero={() => {
           navigation.openDrawer();
         }}
         onPressOne={() => {
           alert('One');
         }}
-        iconTwo="shopping-cart"
+        onPressAdvice={() => {
+          alert('Ad');
+        }}
       />
       <ScrollView>
         <UIFooterHome />
         <View
           style={{
             flex: 1,
+            marginBottom: 8,
           }}>
           <View
             style={{
@@ -47,16 +51,16 @@ const App = props => {
             <TouchableOpacity
               style={{
                 backgroundColor: '#ffffff',
-                height: 220,
+                height: 280,
                 width: '45%',
                 marginStart: 15,
                 marginEnd: 6,
-                borderTopLeftRadius: 8,
-                borderTopRightRadius: 8,
+                borderRadius: 8,
                 borderLeftColor: '#e7eeee',
                 borderLeftWidth: 1.5,
                 borderRightColor: '#e7eeee',
                 borderRightWidth: 1.5,
+                borderTopColor: '#e7eeee',
                 marginBottom: 1,
               }}>
               <ImageBackground
@@ -67,20 +71,43 @@ const App = props => {
                   flex: 1,
                 }}
                 resizeMode="contain"></ImageBackground>
+              <View
+                style={{
+                  height: 60,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: '#111',
+                    fontSize: 13,
+                    fontWeight: 'bold',
+                  }}>
+                  Cassual Dresses
+                </Text>
+                <Text
+                  style={{
+                    marginTop: 3,
+                    color: '#a2a2a2',
+                    fontSize: 12,
+                  }}>
+                  $ 126.09
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 backgroundColor: '#ffffff',
-                height: 220,
+                height: 280,
                 width: '45%',
                 marginStart: 6,
                 marginEnd: 15,
-                borderTopLeftRadius: 8,
-                borderTopRightRadius: 8,
+                borderRadius: 8,
                 borderLeftColor: '#e7eeee',
                 borderLeftWidth: 1.5,
                 borderRightColor: '#e7eeee',
                 borderRightWidth: 1.5,
+                borderTopColor: '#e7eeee',
                 marginBottom: 1,
               }}>
               <ImageBackground
@@ -91,6 +118,29 @@ const App = props => {
                   flex: 1,
                 }}
                 resizeMode="contain"></ImageBackground>
+              <View
+                style={{
+                  height: 60,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: '#111',
+                    fontSize: 13,
+                    fontWeight: 'bold',
+                  }}>
+                  Menswear
+                </Text>
+                <Text
+                  style={{
+                    marginTop: 3,
+                    color: '#a2a2a2',
+                    fontSize: 12,
+                  }}>
+                  $ 99.99
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
