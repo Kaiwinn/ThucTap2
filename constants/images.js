@@ -20,4 +20,7 @@ export default {
   tshirt1: require('../assets/tshirt1.png'),
   tshirt2: require('../assets/tshirt2.png'),
   cancel: require('../assets/cancel.png'),
+  coloring: require('../assets/coloring.png'),
+  dolla: require('../assets/dolla.png'),
+  hanger: require('../assets/hanger.png'),
 };

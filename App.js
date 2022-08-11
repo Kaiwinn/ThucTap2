@@ -30,7 +30,7 @@ const App = props => {
           navigation.openDrawer();
         }}
         onPressOne={() => {
-          alert('One');
+          navigation.getParent().openDrawer();
         }}
         onPressAdvice={() => {
           alert('Ad');

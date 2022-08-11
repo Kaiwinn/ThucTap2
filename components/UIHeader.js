@@ -95,7 +95,7 @@ const UIHeader = props => {
               alignItems: 'center',
               paddingHorizontal: 13,
             }}
-            onPress={() => {}}>
+            onPress={onPressOne}>
             <Image
               source={iconadjust}
               style={{

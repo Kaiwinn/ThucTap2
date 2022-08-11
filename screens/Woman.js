@@ -73,6 +73,9 @@ const Woman = props => {
         onPressZero={() => {
           navigation.openDrawer();
         }}
+        onPressOne={() => {
+          navigation.getParent().openDrawer();
+        }}
       />
       {casual == true && (
         <View>

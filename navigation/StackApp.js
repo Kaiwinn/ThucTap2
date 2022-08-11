@@ -14,32 +14,55 @@ import {
 } from '../screens/index';
 import App from '../App';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {DrawerContents} from '../contents';
+import {DrawerContents, DrawerRightContents} from '../contents';
 
 import {UIHeader} from '../components';
 const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
+const LeftDrawerScreen = () => {
+  return (
+    <Drawer.Navigator
+      id="LeftDrawer"
+      initialRouteName="App"
+      screenOptions={{
+        headerShown: false,
+        drawerPosition: 'left',
+      }}
+      drawerContent={props => <DrawerContents {...props} />}>
+      <Drawer.Screen name="App" component={App} />
+      <Drawer.Screen name="Clothings" component={Clothings} />
+      <Drawer.Screen name="Shoes" component={Shoes} />
+      <Drawer.Screen name="Sports" component={Sports} />
+      <Drawer.Screen name="BagsAndAccessory" component={BagsAndAccessory} />
+      <Drawer.Screen name="Account" component={Account} />
+      <Drawer.Screen name="Settings" component={Settings} />
+      <Drawer.Screen name="AdviceAll" component={AdviceAll} />
+      <Drawer.Screen name="UIHeader" component={UIHeader} />
+      <Drawer.Screen name="Woman" component={Woman} />
+    </Drawer.Navigator>
+  );
+};
+
+const RightDrawer = createDrawerNavigator();
+
+const RightDrawerScreen = () => {
+  return (
+    <RightDrawer.Navigator
+      id="RightDrawer"
+      drawerContent={props => <DrawerRightContents {...props} />}
+      screenOptions={{
+        drawerPosition: 'right',
+        headerShown: false,
+      }}>
+      <RightDrawer.Screen name="HomeDrawer" component={LeftDrawerScreen} />
+    </RightDrawer.Navigator>
+  );
+};
 
 const StackApp = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="App"
-        screenOptions={{
-          headerShown: false,
-        }}
-        drawerContent={props => <DrawerContents {...props} />}>
-        <Drawer.Screen name="App" component={App} />
-        <Drawer.Screen name="Clothings" component={Clothings} />
-        <Drawer.Screen name="Shoes" component={Shoes} />
-        <Drawer.Screen name="Sports" component={Sports} />
-        <Drawer.Screen name="BagsAndAccessory" component={BagsAndAccessory} />
-        <Drawer.Screen name="Account" component={Account} />
-        <Drawer.Screen name="Settings" component={Settings} />
-        <Drawer.Screen name="AdviceAll" component={AdviceAll} />
-        <Drawer.Screen name="UIHeader" component={UIHeader} />
-        <Drawer.Screen name="Woman" component={Woman} />
-      </Drawer.Navigator>
+      <RightDrawerScreen />
     </NavigationContainer>
   );
 };
