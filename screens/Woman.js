@@ -211,7 +211,7 @@ const Woman = props => {
           </View>
         </View>
       )}
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {casual == true && (
           <View
             style={{

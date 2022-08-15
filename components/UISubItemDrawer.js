@@ -2,9 +2,9 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 
 const UISubItemDrawer = props => {
-  const {name} = props;
+  const {name, onPressSub} = props;
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPressSub}>
       <View
         style={{
           paddingHorizontal: 10,

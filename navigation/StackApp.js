@@ -11,6 +11,9 @@ import {
   Settings,
   AdviceAll,
   Woman,
+  CheckOut,
+  Confirm,
+  Product,
 } from '../screens/index';
 import App from '../App';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -39,6 +42,9 @@ const LeftDrawerScreen = () => {
       <Drawer.Screen name="AdviceAll" component={AdviceAll} />
       <Drawer.Screen name="UIHeader" component={UIHeader} />
       <Drawer.Screen name="Woman" component={Woman} />
+      <Drawer.Screen name="CheckOut" component={CheckOut} />
+      <Drawer.Screen name="Confirm" component={Confirm} />
+      <Drawer.Screen name="Product" component={Product} />
     </Drawer.Navigator>
   );
 };

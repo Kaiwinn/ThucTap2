@@ -23,4 +23,12 @@ export default {
   coloring: require('../assets/coloring.png'),
   dolla: require('../assets/dolla.png'),
   hanger: require('../assets/hanger.png'),
+  close2: require('../assets/close2.png'),
+  check: require('../assets/check.png'),
+  paypal: require('../assets/paypal.png'),
+  visa: require('../assets/visa.png'),
+  amazon: require('../assets/amazon.png'),
+  product1: require('../assets/product1.png'),
+  plus: require('../assets/plus.png'),
+  cross: require('../assets/cross.png'),
 };

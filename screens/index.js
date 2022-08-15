@@ -7,6 +7,9 @@ import Account from './Account';
 import Settings from './Settings';
 import AdviceAll from './AdviceAll';
 import Woman from './Woman';
+import CheckOut from './CheckOut';
+import Confirm from './Confirm';
+import Product from './Product';
 
 export {
   StoreShope,
@@ -18,4 +21,7 @@ export {
   Settings,
   AdviceAll,
   Woman,
+  CheckOut,
+  Confirm,
+  Product,
 };

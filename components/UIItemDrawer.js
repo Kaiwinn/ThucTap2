@@ -3,8 +3,10 @@ import React, {useState, useEffect} from 'react';
 import {DrawerItem} from '@react-navigation/drawer';
 import {images} from '../constants';
 import {UISubItemDrawer} from './index';
+import {useNavigation} from '@react-navigation/native';
 
 const UIItemDrawer = props => {
+  const navigation = useNavigation();
   const {onPressMenu, name, isSelected, icon, sub_menus} = props;
   useEffect(() => {}, []);
 
@@ -63,7 +65,19 @@ const UIItemDrawer = props => {
             marginEnd: 10,
           }}>
           {sub_menus?.map(sub_menu => (
-            <UISubItemDrawer key={sub_menu?.name} name={sub_menu?.name} />
+            <UISubItemDrawer
+              onPressSub={() => {
+                if (sub_menu?.name == 'T-shirt') {
+                  navigation.navigate('App');
+                } else if (sub_menu?.name == 'Shorts') {
+                  navigation.navigate('Clothings');
+                } else if (sub_menu?.name == 'Sneakers') {
+                  navigation.navigate('Shoes');
+                }
+              }}
+              key={sub_menu?.name}
+              name={sub_menu?.name}
+            />
           ))}
         </View>
       )}

@@ -12,7 +12,10 @@ import {UIFooterHome, UIHeader, ProductStore} from '../components/index';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {images} from '../constants';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
+
 const StoreShope = props => {
+  const navigation = useNavigation();
   const [listProduct, setListProduct] = useState([
     {
       id: 1,
@@ -110,14 +113,7 @@ const StoreShope = props => {
                     paddingStart: 8,
                     paddingEnd: 16,
                   }}
-                  onPress={() => {
-                    // setHintOptions(!hintOptions);
-                    // if (hintOptions == true) {
-                    //   setColorTag('#ffffff');
-                    // } else if (hintOptions == false) {
-                    //   setColorTag('#497a92');
-                    // }
-                  }}>
+                  onPress={() => {}}>
                   <Icon name="tags" size={24} color={colorTag} />
                 </TouchableOpacity>
               </View>
@@ -161,7 +157,11 @@ const StoreShope = props => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <TouchableWithoutFeedback onPress={() => {}}>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  closeModal();
+                  navigation.navigate('CheckOut');
+                }}>
                 <View
                   style={{
                     height: 45,

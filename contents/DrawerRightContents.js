@@ -345,6 +345,7 @@ const DrawerRightContents = () => {
         }}>
         {sizes.map(size => (
           <View
+            key={size.size}
             style={{
               height: 40,
               width: 40,

@@ -36,7 +36,7 @@ const App = props => {
           alert('Ad');
         }}
       />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <UIFooterHome />
         <View
           style={{
@@ -49,6 +49,9 @@ const App = props => {
               flex: 1,
             }}>
             <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Product');
+              }}
               style={{
                 backgroundColor: '#ffffff',
                 height: 280,

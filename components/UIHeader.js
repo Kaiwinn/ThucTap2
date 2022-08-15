@@ -87,6 +87,26 @@ const UIHeader = props => {
             setVisiblely(true);
           }}>
           <Icon name="shopping-cart" size={24} color="#2f2f2f" />
+          <View
+            style={{
+              height: 13,
+              width: 20,
+              backgroundColor: 'white',
+              position: 'absolute',
+              justifyContent: 'center',
+              alignItems: 'center',
+              right: 1,
+              top: 13,
+              borderRadius: 10,
+            }}>
+            <Text
+              style={{
+                fontSize: 10,
+                color: '#000',
+              }}>
+              3
+            </Text>
+          </View>
         </TouchableOpacity>
         {iconadjust != undefined && (
           <TouchableOpacity
