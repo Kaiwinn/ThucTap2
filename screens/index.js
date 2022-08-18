@@ -10,6 +10,7 @@ import Woman from './Woman';
 import CheckOut from './CheckOut';
 import Confirm from './Confirm';
 import Product from './Product';
+import Login from './Login';
 
 export {
   StoreShope,
@@ -24,4 +25,5 @@ export {
   CheckOut,
   Confirm,
   Product,
+  Login,
 };

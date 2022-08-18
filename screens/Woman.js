@@ -217,7 +217,7 @@ const Woman = props => {
             style={{
               marginVertical: 40,
               height: 48,
-              marginHorizontal: 50,
+              marginHorizontal: 40,
               justifyContent: 'space-around',
               alignItems: 'center',
               flexDirection: 'row',
@@ -227,6 +227,7 @@ const Woman = props => {
                 style={{
                   height: 38,
                   width: 83,
+                  marginHorizontal: 10,
                   borderRadius: 3,
                   backgroundColor: '#aaaaaa',
                   justifyContent: 'center',

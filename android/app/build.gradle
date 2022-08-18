@@ -5,7 +5,7 @@ import com.android.build.OutputFile
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
- * These basically call `react-native bundle` with the correct arguments during the Android build
+ * These basically call `react-native bundle` withinclude ':react-native-splash-screen'    the correct arguments during the Android build
  * cycle. By default, bundleDebugJsAndAssets is skipped, as in debug/dev mode we prefer to load the
  * bundle directly from the development server. Below you can see all the possible configurations
  * and their defaults. If you decide to add a configuration block, make sure to add it before the
@@ -79,7 +79,7 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
-    iconFontNames: [ 'AntDesign.ttf', 'Entypo.ttf' ] // Name of the font files you want to copy
+    // iconFontNames: [ 'AntDesign.ttf', 'Entypo.ttf' ] // Name of the font files you want to copy
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -258,6 +258,9 @@ android {
 }
 
 dependencies {
+
+
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
@@ -289,6 +292,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+
 }
 
 if (isNewArchitectureEnabled()) {

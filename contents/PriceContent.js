@@ -1,99 +1,107 @@
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
-import React, {useMemo, useRef} from 'react';
-import Svg, {Line} from 'react-native-svg';
-import {PanGestureHandler, State} from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated';
+import * as React from 'react';
+import {SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {Slider} from '@miblanchard/react-native-slider';
 
-const {width} = Dimensions.get('window');
+const DEFAULT_VALUE = 0.3;
 
-const WIDTH = width - 140;
-
-const usePanGesture = () => {
-  const transX = useRef(new Animated.Value(0)).current;
-
-  const offsetX = useRef(new Animated.Value(0)).current;
-
-  const onGestureHandle = useMemo(() => {
-    return Animated.event([
-      {
-        nativeEvent: ({translation: x, State}) => Animated.set(transX, x),
-      },
-    ]);
-  }, [transX, offsetX]);
-
-  return {transX, onGestureHandle};
-};
-
-const PanComponent = () => {
-  const {transX, onGestureHandle} = usePanGesture();
-  return (
-    <PanGestureHandler
-      onGestureEvent={onGestureHandle}
-      onHandlerStateChange={onGestureHandle}>
-      <Animated.View
-        style={{
-          height: 20,
-          width: 10,
-          borderRadius: 1,
-          backgroundColor: '#9fb6cb',
-          position: 'absolute',
-          elevation: 5,
-          shadowColor: '#111',
-          shadowRadius: 4,
-          shadoOffset: {
-            height: 2,
-            width: 0,
-          },
-          shadowOpacity: 0.5,
-          transform: [
-            {
-              translateX: transX,
-            },
-          ],
-        }}></Animated.View>
-    </PanGestureHandler>
+const SliderContainer = (props: {
+  children: React.ReactElement,
+  sliderValue?: Array<number>,
+  trackMarks?: Array<number>,
+  vertical?: boolean,
+}) => {
+  const {sliderValue, trackMarks} = props;
+  const [value, setValue] = React.useState(
+    sliderValue ? sliderValue : DEFAULT_VALUE,
   );
-};
+  let renderTrackMarkComponent: React.ReactNode;
 
-const PriceContent = props => {
-  const {minValue, maxValue, onChangeMin, onChangeMax} = props;
+  const renderChildren = () => {
+    return React.Children.map(props.children, (child: React.ReactElement) => {
+      if (!!child && child.type === Slider) {
+        return React.cloneElement(child, {
+          onValueChange: setValue,
+          renderTrackMarkComponent,
+          trackMarks,
+          value,
+        });
+      }
+
+      return child;
+    });
+  };
+
   return (
-    <View
-      style={{
-        marginVertical: 25,
-        marginHorizontal: 30,
-        justifyContent: 'center',
-      }}>
+    <View style={{}}>
       <View
         style={{
-          backgroundColor: '#a1a1a1',
-          height: 5,
-          borderRadius: 5,
-          width: WIDTH,
-          position: 'absolute',
-          alignSelf: 'center',
+          marginHorizontal: 20,
+        }}>
+        {renderChildren()}
+      </View>
+
+      <View
+        style={{
+          marginHorizontal: 30,
+          height: 50,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingHorizontal: 5,
         }}>
         <View
           style={{
-            position: 'absolute',
+            height: 35,
+            width: 90,
+            backgroundColor: '#d0d0d0',
+            borderRadius: 3,
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-          <Svg height={5} width={WIDTH}>
-            <Line
-              stroke="#00c5c5"
-              strokeWidth="12"
-              x1={30}
-              y1={0}
-              x2={WIDTH}
-              y2={0}
-            />
-          </Svg>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              color: '#909090',
+              fontSize: 15,
+            }}>
+            $ {value.slice(0, value.length - 1)}
+          </Text>
+        </View>
+        <View
+          style={{
+            height: 35,
+            width: 90,
+            backgroundColor: '#d0d0d0',
+            borderRadius: 3,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              color: '#909090',
+              fontSize: 15,
+            }}>
+            $ {value.slice(value.length - 1)}
+          </Text>
         </View>
       </View>
-      <PanComponent />
     </View>
   );
 };
 
-export default PriceContent;
+const PriceContent = () => (
+  <SliderContainer sliderValue={[6, 18]}>
+    <Slider
+      animateTransitions
+      maximumTrackTintColor="#d3d3d3"
+      maximumValue={150}
+      minimumTrackTintColor="#1fb28a"
+      minimumValue={0}
+      step={0.5}
+      thumbTintColor="#1a9274"
+    />
+  </SliderContainer>
+);
 
-const styles = StyleSheet.create({});
+export default PriceContent;

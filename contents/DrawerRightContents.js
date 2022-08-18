@@ -254,58 +254,13 @@ const DrawerRightContents = () => {
           </Text>
         </View>
       </View>
-      <PriceContent
-        minValue={0}
-        maxValue={100}
-        onChangeMin={v => console.log(v)}
-        onChangeMax={v => console.log(v)}
-      />
       <View
         style={{
-          marginHorizontal: 30,
-          height: 50,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingHorizontal: 5,
+          height: 100,
         }}>
-        <View
-          style={{
-            height: 35,
-            width: 90,
-            backgroundColor: '#d0d0d0',
-            borderRadius: 3,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              color: '#909090',
-              fontSize: 15,
-            }}>
-            $ 48
-          </Text>
-        </View>
-        <View
-          style={{
-            height: 35,
-            width: 90,
-            backgroundColor: '#d0d0d0',
-            borderRadius: 3,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              color: '#909090',
-              fontSize: 15,
-            }}>
-            $ 60
-          </Text>
-        </View>
+        <PriceContent />
       </View>
+
       <View
         style={{
           marginTop: 5,
