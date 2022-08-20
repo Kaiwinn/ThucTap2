@@ -13,14 +13,14 @@ import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {UIFooterHome, UIHeader} from './components/index';
 import {Drawer} from './contents';
-import SplashScreen from 'react-native-splash-screen';
+// import SplashScreen from 'react-native-splash-screen';
 
 const App = props => {
   const {navigation, route} = props;
   const {navigate, goBack} = navigation;
 
   useEffect(() => {
-    SplashScreen.hide();
+    // SplashScreen.hide();
   }, []);
 
   return (

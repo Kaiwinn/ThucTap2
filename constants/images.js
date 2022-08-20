@@ -31,4 +31,10 @@ export default {
   product1: require('../assets/product1.png'),
   plus: require('../assets/plus.png'),
   cross: require('../assets/cross.png'),
+  ai: require('../assets/ai.png'),
+  fb: require('../assets/fb.png'),
+  kitty: require('../assets/kitty.png'),
+  insta: require('../assets/insta.png'),
+  ggpink: require('../assets/ggpink.png'),
+  noname: require('../assets/noname.png'),
 };

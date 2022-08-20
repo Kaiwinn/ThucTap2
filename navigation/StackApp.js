@@ -14,6 +14,8 @@ import {
   CheckOut,
   Confirm,
   Product,
+  Login,
+  Register,
 } from '../screens/index';
 import App from '../App';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -27,12 +29,13 @@ const LeftDrawerScreen = () => {
   return (
     <Drawer.Navigator
       id="LeftDrawer"
-      initialRouteName="App"
+      initialRouteName="Login"
       screenOptions={{
         headerShown: false,
         drawerPosition: 'left',
       }}
       drawerContent={props => <DrawerContents {...props} />}>
+      <Drawer.Screen name="Login" component={Login} />
       <Drawer.Screen name="App" component={App} />
       <Drawer.Screen name="Clothings" component={Clothings} />
       <Drawer.Screen name="Shoes" component={Shoes} />
@@ -46,6 +49,7 @@ const LeftDrawerScreen = () => {
       <Drawer.Screen name="CheckOut" component={CheckOut} />
       <Drawer.Screen name="Confirm" component={Confirm} />
       <Drawer.Screen name="Product" component={Product} />
+      <Drawer.Screen name="Register" component={Register} />
     </Drawer.Navigator>
   );
 };

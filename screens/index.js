@@ -11,6 +11,7 @@ import CheckOut from './CheckOut';
 import Confirm from './Confirm';
 import Product from './Product';
 import Login from './Login';
+import Register from './Register';
 
 export {
   StoreShope,
@@ -26,4 +27,5 @@ export {
   Confirm,
   Product,
   Login,
+  Register,
 };
