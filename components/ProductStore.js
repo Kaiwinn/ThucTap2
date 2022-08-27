@@ -11,7 +11,17 @@ import {images} from '../constants';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 const ProductStore = props => {
-  const {image, name, size, price, products, id} = props;
+  const {
+    image,
+    name,
+    size,
+    price,
+    products,
+    id,
+    onPressTop,
+    onPressBottom,
+    amount,
+  } = props;
   const [swipeableOpen, setSwipeableOpen] = useState(false);
   const leftAction = () => {
     return (
@@ -93,6 +103,7 @@ const ProductStore = props => {
               marginVertical: 10,
             }}>
             <Text
+              numberOfLines={1}
               style={{
                 color: 'black',
                 fontSize: 16,
@@ -141,10 +152,11 @@ const ProductStore = props => {
                   color: 'black',
                   margin: 8,
                 }}>
-                1
+                {amount}
               </Text>
               <View>
                 <TouchableOpacity
+                  onPress={onPressTop}
                   style={{
                     paddingTop: 15,
                     paddingBottom: 5,
@@ -162,6 +174,8 @@ const ProductStore = props => {
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
+                  disabled={amount == 1}
+                  onPress={onPressBottom}
                   style={{
                     paddingTop: 5,
                     paddingBottom: 15,
@@ -174,7 +188,7 @@ const ProductStore = props => {
                       height: 15,
                       width: 15,
                       transform: [{rotate: '90deg'}],
-                      tintColor: '#666666',
+                      tintColor: amount == 1 ? '#737373' : '#444444',
                     }}
                   />
                 </TouchableOpacity>

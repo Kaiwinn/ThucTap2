@@ -256,7 +256,8 @@ const DrawerRightContents = () => {
       </View>
       <View
         style={{
-          height: 100,
+          height: 70,
+          marginHorizontal: 30,
         }}>
         <PriceContent />
       </View>

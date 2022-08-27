@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {images} from '../constants';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
+import {set} from 'react-native-reanimated';
 
 const StoreShope = props => {
   const navigation = useNavigation();
@@ -125,6 +126,29 @@ const StoreShope = props => {
               }}>
               {listProduct.map(product => (
                 <ProductStore
+                  onPressTop={() => {
+                    let newProduct = listProduct.map(eachProduct => {
+                      if (eachProduct.id == product.id) {
+                        return {...eachProduct, amount: eachProduct.amount + 1};
+                      } else {
+                        return eachProduct;
+                      }
+                    });
+                    setListProduct(newProduct);
+                  }}
+                  onPressBottom={() => {
+                    let newProduct2 = listProduct.map(eachProduct2 => {
+                      if (eachProduct2.id == product.id) {
+                        return {
+                          ...eachProduct2,
+                          amount: eachProduct2.amount - 1,
+                        };
+                      } else {
+                        return eachProduct2;
+                      }
+                    });
+                    setListProduct(newProduct2);
+                  }}
                   products={product}
                   key={product.id}
                   id={product.id}
@@ -132,6 +156,7 @@ const StoreShope = props => {
                   name={product.name}
                   size={product.size}
                   price={product.price}
+                  amount={product.amount}
                 />
               ))}
             </View>

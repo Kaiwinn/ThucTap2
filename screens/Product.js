@@ -8,12 +8,28 @@ import {
   TouchableWithoutFeedback,
   View,
   Dimensions,
+  FlatList,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {images} from '../constants';
 
 const Product = props => {
+  const [imgDot, setImgDot] = useState([{number: 0}, {number: 1}, {number: 2}]);
+
+  const [imgActive, setImgActive] = useState(0);
+
+  const onChanged = nativeEvent => {
+    if (nativeEvent) {
+      const slide = Math.ceil(
+        nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
+      );
+      if (slide != imgActive) {
+        setImgActive(slide);
+      }
+    }
+  };
+
   const {navigation, route} = props;
   const {navigate, goBack} = navigation;
 
@@ -125,7 +141,7 @@ const Product = props => {
           </Text>
         </View>
       </View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             flex: 1,
@@ -143,10 +159,14 @@ const Product = props => {
             <View
               style={{
                 height: 280,
+                borderRadius: 10,
+                backgroundColor: '#e6e6e6',
               }}>
               <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
+                onScroll={({nativeEvent}) => onChanged(nativeEvent)}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                pagingEnabled>
                 <View
                   style={{
                     height: 280,
@@ -199,41 +219,25 @@ const Product = props => {
               <View
                 style={{
                   position: 'absolute',
-                  bottom: 25,
-                  left: 20,
+                  bottom: 13,
+                  left: 25,
                   height: 40,
                   width: 60,
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                <Image
-                  style={{
-                    height: 9,
-                    width: 12,
-                    marginHorizontal: 4,
-                    tintColor: '#43d3d8',
-                  }}
-                  source={images.cross}
-                />
-                <Image
-                  style={{
-                    height: 9,
-                    width: 12,
-                    marginHorizontal: 4,
-                    tintColor: '#43d3d8',
-                  }}
-                  source={images.cross}
-                />
-                <Image
-                  style={{
-                    height: 9,
-                    width: 12,
-                    marginHorizontal: 4,
-                    tintColor: '#43d3d8',
-                  }}
-                  source={images.cross}
-                />
+                {imgDot.map(img => (
+                  <View
+                    key={img.number}
+                    style={{
+                      height: 5,
+                      width: 18,
+                      marginHorizontal: 5,
+                      backgroundColor:
+                        imgActive == img.number ? '#5a99a5' : '#c0c0c0',
+                    }}></View>
+                ))}
               </View>
             </View>
 

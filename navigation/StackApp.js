@@ -34,6 +34,7 @@ const LeftDrawerScreen = () => {
         headerShown: false,
         drawerPosition: 'left',
       }}
+      backBehavior={'history'}
       drawerContent={props => <DrawerContents {...props} />}>
       <Drawer.Screen name="Login" component={Login} />
       <Drawer.Screen name="App" component={App} />
