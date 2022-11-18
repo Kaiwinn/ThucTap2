@@ -9,12 +9,87 @@ import {
   View,
   Dimensions,
   FlatList,
+  Animated,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {ShoppingCartIcon} from '../components';
 import {images} from '../constants';
+import {connect} from 'react-redux';
+import StoreShope from './StoreShope';
 
 const Product = props => {
+  const widthHeight = useRef(new Animated.Value(35)).current;
+  const animatedm = useRef(
+    new Animated.ValueXY({
+      x: -100,
+      y: 120,
+    }),
+  ).current;
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const zoomOut = () => {
+    Animated.sequence([
+      Animated.timing(widthHeight, {
+        toValue: 10,
+        duration: 1900,
+        useNativeDriver: false,
+      }),
+      Animated.timing(widthHeight, {
+        toValue: 35,
+        duration: 10,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const animatedMoved = e => {
+    Animated.sequence([
+      Animated.timing(animatedm, {
+        toValue: {
+          x: e.nativeEvent.pageX - 110,
+          y: e.nativeEvent.pageX - 30,
+        },
+        duration: 0,
+        useNativeDriver: false,
+        // easing: Easing.linear,
+      }),
+      Animated.timing(animatedm, {
+        toValue: {
+          x: -300,
+          y: 430,
+        },
+        duration: 1900,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const fadeOut = () => {
+    Animated.sequence([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: false,
+      }),
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 1900,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const animatedM = e => {
+    // console.log(e.nativeEvent);
+    Animated.parallel([animatedMoved(e), fadeOut(), zoomOut()]).start();
+  };
+
+  const {addItemToCart, cartItems} = props;
+  const {url} = props.route.params.product;
+  const {product} = props.route.params;
+
   const [imgDot, setImgDot] = useState([{number: 0}, {number: 1}, {number: 2}]);
 
   const [imgActive, setImgActive] = useState(0);
@@ -34,6 +109,12 @@ const Product = props => {
   const {navigate, goBack} = navigation;
 
   const screenWidth = Dimensions.get('window').width - 30;
+  const [visiblely, setVisiblely] = useState(false);
+  const closeModal = () => {
+    setVisiblely(false);
+  };
+
+  useEffect(() => {});
   return (
     <View
       style={{
@@ -60,7 +141,7 @@ const Product = props => {
             style={{
               height: 25,
               width: 25,
-              tintColor: '#282f2f',
+              tintColor: '#0d1e2a',
             }}
           />
         </TouchableOpacity>
@@ -80,16 +161,15 @@ const Product = props => {
           </Text>
         </View>
 
-        <TouchableOpacity
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingStart: 8,
-            paddingEnd: 18,
+        <ShoppingCartIcon
+          colorIcon="#fff"
+          onPress={() => {
+            setVisiblely(true);
           }}
-          onPress={() => {}}>
-          <Icon name="shopping-cart" size={24} color={'#111'} />
-        </TouchableOpacity>
+        />
+        <View>
+          <StoreShope visible={visiblely} closeModal={() => closeModal()} />
+        </View>
       </View>
       <View
         style={{
@@ -100,46 +180,56 @@ const Product = props => {
           flexDirection: 'row',
           paddingHorizontal: 15,
         }}>
-        <View
-          style={{
-            height: 43,
-            width: 185,
-            backgroundColor: '#0c313b',
-            borderRadius: 3,
-            paddingStart: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-            elevation: 2,
-          }}>
-          <Text
+        <TouchableWithoutFeedback onPress={() => {}}>
+          <View
             style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              color: '#ebeaea',
+              height: 43,
+              flex: 1,
+              backgroundColor: '#0d1e2a',
+              borderRadius: 4,
+              marginEnd: 5,
+              paddingStart: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
+              elevation: 5,
             }}>
-            Add to wishlist
-          </Text>
-        </View>
-        <View
-          style={{
-            height: 40,
-            width: 185,
-            backgroundColor: '#f6846a',
-            borderRadius: 3,
-            paddingEnd: 10,
-            elevation: 5,
-            justifyContent: 'center',
-            alignItems: 'center',
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#ebeaea',
+              }}>
+              Add to wishlist
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={e => {
+            animatedM(e);
+            addItemToCart(product);
           }}>
-          <Text
+          <View
             style={{
-              color: '#ebeaea',
-              fontWeight: 'bold',
-              fontSize: 16,
+              height: 43,
+              flex: 1,
+              backgroundColor: '#ca8eeb',
+              borderRadius: 4,
+              marginStart: 5,
+              paddingEnd: 5,
+              elevation: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            Add to Cart
-          </Text>
-        </View>
+            <Text
+              style={{
+                color: '#ebeaea',
+                fontWeight: 'bold',
+                fontSize: 16,
+              }}>
+              Add to Cart
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
@@ -171,12 +261,14 @@ const Product = props => {
                   style={{
                     height: 280,
                     width: screenWidth,
-                    backgroundColor: '#f8f8f8',
+                    backgroundColor: '#fff',
                     borderTopLeftRadius: 10,
                     borderTopRightRadius: 10,
                   }}>
                   <ImageBackground
-                    source={images.product1}
+                    source={{
+                      uri: url,
+                    }}
                     style={{
                       flex: 1,
                       borderRadius: 10,
@@ -419,10 +511,41 @@ const Product = props => {
           </View>
         </View>
       </ScrollView>
+      <Animated.View
+        style={{
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: animatedm.x,
+          marginStart: animatedm.y,
+          opacity: fadeAnim,
+          height: widthHeight,
+          width: widthHeight,
+        }}>
+        <Image
+          source={images.cart}
+          style={{
+            height: 35,
+            width: 35,
+          }}
+        />
+      </Animated.View>
     </View>
   );
 };
 
-export default Product;
+const mapStateToProps = state => {
+  return {
+    cartItems: state,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addItemToCart: product => dispatch({type: 'ADD_PRODUCT', payload: product}),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
 
 const styles = StyleSheet.create({});

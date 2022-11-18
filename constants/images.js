@@ -37,4 +37,6 @@ export default {
   insta: require('../assets/insta.png'),
   ggpink: require('../assets/ggpink.png'),
   noname: require('../assets/noname.png'),
+  mom: require('../assets/mom.jpg'),
+  cart: require('../assets/cart.png'),
 };

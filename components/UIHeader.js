@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {UITagHeader} from './index';
+import {UITagHeader, ShoppingCartIcon} from './index';
 import {StoreShope} from '../screens';
 import {useNavigation} from '@react-navigation/native';
 
@@ -38,7 +38,7 @@ const UIHeader = props => {
 
   const [color, setColor] = useState('#78bef6');
 
-  const [colorTag, setColorTag] = useState('#497a92');
+  const [colorTag, setColorTag] = useState('#2f2f2f');
   const [visiblely, setVisiblely] = useState(false);
   const closeModal = () => {
     setVisiblely(false);
@@ -77,37 +77,13 @@ const UIHeader = props => {
           </Text>
         </View>
 
-        <TouchableOpacity
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingHorizontal: 13,
-          }}
+        <ShoppingCartIcon
+          colorIcon="#2f2f2f"
           onPress={() => {
             setVisiblely(true);
-          }}>
-          <Icon name="shopping-cart" size={24} color="#2f2f2f" />
-          <View
-            style={{
-              height: 13,
-              width: 20,
-              backgroundColor: 'white',
-              position: 'absolute',
-              justifyContent: 'center',
-              alignItems: 'center',
-              right: 1,
-              top: 13,
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                fontSize: 10,
-                color: '#000',
-              }}>
-              3
-            </Text>
-          </View>
-        </TouchableOpacity>
+          }}
+        />
+
         {iconadjust != undefined && (
           <TouchableOpacity
             style={{
@@ -139,7 +115,7 @@ const UIHeader = props => {
               if (hintOptions == true) {
                 setColorTag('#ffffff');
               } else if (hintOptions == false) {
-                setColorTag('#497a92');
+                setColorTag('#2f2f2f');
               }
             }}>
             <Icon name="tags" size={24} color={colorTag} />

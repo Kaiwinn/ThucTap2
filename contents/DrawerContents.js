@@ -149,6 +149,9 @@ const DrawerContents = props => {
                   };
                 });
                 setTypeButton(newTypeButtons);
+                if (btnSetting.name == 'Account') {
+                  navigation.navigate('Account');
+                }
               }}
             />
           ))}

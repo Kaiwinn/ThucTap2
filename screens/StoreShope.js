@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {UIFooterHome, UIHeader, ProductStore} from '../components/index';
@@ -14,42 +15,26 @@ import {images} from '../constants';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {set} from 'react-native-reanimated';
+import {connect} from 'react-redux';
 
 const StoreShope = props => {
   const navigation = useNavigation();
-  const [listProduct, setListProduct] = useState([
-    {
-      id: 1,
-      name: 'Muffin Dress',
-      image: images.dress,
-      size: 'S',
-      price: 25,
-      amount: 1,
-    },
-    {
-      id: 2,
-      name: 'Gorgeus Red Cap',
-      image: images.cap,
-      size: '7',
-      price: 112,
-      amount: 2,
-    },
-    {
-      id: 3,
-      name: 'Black Trainers',
-      image: images.shoes_woman,
-      size: '9.5',
-      price: 78,
-      amount: 1,
-    },
-  ]);
 
   const [color, setColor] = useState('#f6846a');
 
   const [colorTag, setColorTag] = useState('#36494f');
 
-  const {visible, closeModal} = props;
-  const [visibili, setVisibili] = useState(false);
+  const {visible, closeModal, cartItems, removeItem} = props;
+  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    const objects = cartItems;
+    const sum = objects.reduce(
+      (previousValue, currentValue) =>
+        previousValue + currentValue.amount * currentValue.price,
+      0,
+    );
+    setTotalPrice(sum);
+  });
 
   return (
     <Modal transparent visible={visible}>
@@ -124,41 +109,12 @@ const StoreShope = props => {
                 flex: 1,
                 paddingHorizontal: 20,
               }}>
-              {listProduct.map(product => (
+              <ScrollView showsVerticalScrollIndicator={false}>
                 <ProductStore
-                  onPressTop={() => {
-                    let newProduct = listProduct.map(eachProduct => {
-                      if (eachProduct.id == product.id) {
-                        return {...eachProduct, amount: eachProduct.amount + 1};
-                      } else {
-                        return eachProduct;
-                      }
-                    });
-                    setListProduct(newProduct);
-                  }}
-                  onPressBottom={() => {
-                    let newProduct2 = listProduct.map(eachProduct2 => {
-                      if (eachProduct2.id == product.id) {
-                        return {
-                          ...eachProduct2,
-                          amount: eachProduct2.amount - 1,
-                        };
-                      } else {
-                        return eachProduct2;
-                      }
-                    });
-                    setListProduct(newProduct2);
-                  }}
-                  products={product}
-                  key={product.id}
-                  id={product.id}
-                  image={product.image}
-                  name={product.name}
-                  size={product.size}
-                  price={product.price}
-                  amount={product.amount}
+                  productss={cartItems}
+                  onPressDelete={removeItem}
                 />
-              ))}
+              </ScrollView>
             </View>
             <View
               style={{
@@ -173,7 +129,7 @@ const StoreShope = props => {
                   color: 'white',
                   fontWeight: '700',
                 }}>
-                $ 300,00
+                $ {totalPrice}
               </Text>
             </View>
             <View
@@ -224,6 +180,18 @@ const StoreShope = props => {
   );
 };
 
-export default StoreShope;
+const mapStateToProps = state => {
+  return {
+    cartItems: state,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    removeItem: product => dispatch({type: 'REMOVE_PRODUCT', payload: product}),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StoreShope);
 
 const styles = StyleSheet.create({});

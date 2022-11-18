@@ -6,6 +6,7 @@ import UISubItemDrawer from './UISubItemDrawer';
 import UITagHeader from './UITagHeader';
 import UIHeadManOrWoman from './UIHeadManOrWoman';
 import ProductStore from './ProductStore';
+import ShoppingCartIcon from './ShoppingCartIcon';
 
 export {
   UIFooterHome,
@@ -16,4 +17,5 @@ export {
   UITagHeader,
   UIHeadManOrWoman,
   ProductStore,
+  ShoppingCartIcon,
 };

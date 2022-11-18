@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
@@ -22,36 +22,45 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {DrawerContents, DrawerRightContents} from '../contents';
 
 import {UIHeader} from '../components';
+import {Provider, useDispatch} from 'react-redux';
+import store from '../redux/store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {connect} from 'react-redux';
+
+const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
+
 // const Stack = createNativeStackNavigator();
 const LeftDrawerScreen = () => {
   return (
-    <Drawer.Navigator
-      id="LeftDrawer"
-      initialRouteName="Login"
-      screenOptions={{
-        headerShown: false,
-        drawerPosition: 'left',
-      }}
-      backBehavior={'history'}
-      drawerContent={props => <DrawerContents {...props} />}>
-      <Drawer.Screen name="Login" component={Login} />
-      <Drawer.Screen name="App" component={App} />
-      <Drawer.Screen name="Clothings" component={Clothings} />
-      <Drawer.Screen name="Shoes" component={Shoes} />
-      <Drawer.Screen name="Sports" component={Sports} />
-      <Drawer.Screen name="BagsAndAccessory" component={BagsAndAccessory} />
-      <Drawer.Screen name="Account" component={Account} />
-      <Drawer.Screen name="Settings" component={Settings} />
-      <Drawer.Screen name="AdviceAll" component={AdviceAll} />
-      <Drawer.Screen name="UIHeader" component={UIHeader} />
-      <Drawer.Screen name="Woman" component={Woman} />
-      <Drawer.Screen name="CheckOut" component={CheckOut} />
-      <Drawer.Screen name="Confirm" component={Confirm} />
-      <Drawer.Screen name="Product" component={Product} />
-      <Drawer.Screen name="Register" component={Register} />
-    </Drawer.Navigator>
+    <Provider store={store}>
+      <Drawer.Navigator
+        id="LeftDrawer"
+        initialRouteName="Login"
+        screenOptions={{
+          headerShown: false,
+          drawerPosition: 'left',
+        }}
+        backBehavior={'history'}
+        drawerContent={props => <DrawerContents {...props} />}>
+        <Drawer.Screen name="Login" component={Login} />
+        <Drawer.Screen name="App" component={App} />
+        <Drawer.Screen name="Clothings" component={Clothings} />
+        <Drawer.Screen name="Shoes" component={Shoes} />
+        <Drawer.Screen name="Sports" component={Sports} />
+        <Drawer.Screen name="BagsAndAccessory" component={BagsAndAccessory} />
+        <Drawer.Screen name="Account" component={Account} />
+        <Drawer.Screen name="Settings" component={Settings} />
+        <Drawer.Screen name="AdviceAll" component={AdviceAll} />
+        <Drawer.Screen name="UIHeader" component={UIHeader} />
+        <Drawer.Screen name="Woman" component={Woman} />
+        <Drawer.Screen name="CheckOut" component={CheckOut} />
+        <Drawer.Screen name="Confirm" component={Confirm} />
+        <Drawer.Screen name="Product" component={Product} />
+        <Drawer.Screen name="Register" component={Register} />
+      </Drawer.Navigator>
+    </Provider>
   );
 };
 

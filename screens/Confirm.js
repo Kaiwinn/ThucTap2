@@ -63,7 +63,7 @@ const Confirm = props => {
             paddingHorizontal: 15,
           }}
           onPress={() => {
-            navigate('CheckOut');
+            goBack();
           }}>
           <Image
             source={images.arrow}
