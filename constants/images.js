@@ -37,6 +37,12 @@ export default {
   insta: require('../assets/insta.png'),
   ggpink: require('../assets/ggpink.png'),
   noname: require('../assets/noname.png'),
-  mom: require('../assets/mom.jpg'),
+  dog: require('../assets/dog.jpg'),
   cart: require('../assets/cart.png'),
+  comments: require('../assets/comments.png'),
+  like: require('../assets/like.png'),
+  sharing: require('../assets/sharing.png'),
+  dots: require('../assets/dots.png'),
+  like2: require('../assets/like2.png'),
+  chien2: require('../assets/chien2.jpg'),
 };

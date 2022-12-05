@@ -14,8 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const UIHeader = props => {
   const navigation = useNavigation();
-  const {onPressZero, onPressOne, iconTwo, iconadjust, title, colorOfWoman} =
-    props;
+  const {onPressZero, onPressOne, iconadjust, title, colorOfWoman} = props;
   const [tagOptions, setTagOptions] = useState([
     {
       id: 1,
@@ -44,6 +43,7 @@ const UIHeader = props => {
     setVisiblely(false);
   };
 
+  useEffect(() => {});
   return (
     <View style={{}}>
       <View
@@ -146,6 +146,20 @@ const UIHeader = props => {
                 setTagOptions(newTagOption);
                 if (tagOption.id == 1) {
                   navigation.navigate('AdviceAll');
+                  let newTagOption2 = tagOptions.map(tag2 => {
+                    if (tag2.id == 3) {
+                      return {
+                        ...tag2,
+                        isSelected: true,
+                      };
+                    } else {
+                      return {
+                        ...tag2,
+                        isSelected: false,
+                      };
+                    }
+                  });
+                  setTagOptions(newTagOption2);
                 }
               }}
             />

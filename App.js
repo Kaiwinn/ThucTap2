@@ -124,7 +124,6 @@ const App = props => {
 
   useEffect(() => {
     fetchCart();
-    // SplashScreen.hide();
   }, []);
 
   return (
@@ -141,9 +140,7 @@ const App = props => {
         onPressOne={() => {
           navigation.getParent().openDrawer();
         }}
-        onPressAdvice={() => {
-          alert('Ad');
-        }}
+        onPressAdvice={() => {}}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <UIFooterHome />
