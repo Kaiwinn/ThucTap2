@@ -12,6 +12,8 @@ import Confirm from './Confirm';
 import Product from './Product';
 import Login from './Login';
 import Register from './Register';
+import ShortFlowing from './ShortFlowing';
+import ShortNearby from './ShortNearby';
 
 export {
   StoreShope,
@@ -28,4 +30,6 @@ export {
   Product,
   Login,
   Register,
+  ShortFlowing,
+  ShortNearby,
 };

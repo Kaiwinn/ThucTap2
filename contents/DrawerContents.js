@@ -1,19 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  StyleSheet,
-  SafeAreaView,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, SafeAreaView} from 'react-native';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import {
-  UIProfileDrawer,
-  UIItemDrawer,
-  UITagHeader,
-  UIHeadManOrWoman,
-} from '../components';
+import {UIItemDrawer, UIHeadManOrWoman} from '../components';
 import {
   Caption,
   Paragraph,

@@ -16,6 +16,8 @@ import {
   Product,
   Login,
   Register,
+  ShortFlowing,
+  // TabsOfShort,
 } from '../screens/index';
 import App from '../App';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -59,6 +61,8 @@ const LeftDrawerScreen = () => {
         <Drawer.Screen name="Confirm" component={Confirm} />
         <Drawer.Screen name="Product" component={Product} />
         <Drawer.Screen name="Register" component={Register} />
+        <Drawer.Screen name="ShortFlowing" component={ShortFlowing} />
+        {/* <Drawer.Screen name="TabsOfShort" component={TabsOfShort} /> */}
       </Drawer.Navigator>
     </Provider>
   );
