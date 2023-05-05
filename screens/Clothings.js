@@ -8,17 +8,101 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Animated,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {UIHeader} from '../components';
 import {images} from '../constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ShortFlowing from './ShortFlowing';
 import ShortNearby from './ShortNearby';
+import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Clothings = props => {
-  const {navigation, route} = props;
+  const widthHeight = useRef(new Animated.Value(35)).current;
+  const animatedm = useRef(
+    new Animated.ValueXY({
+      x: 220,
+      y: 150,
+    }),
+  ).current;
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const zoomOut = () => {
+    Animated.sequence([
+      Animated.timing(widthHeight, {
+        toValue: 10,
+        duration: 2300,
+        useNativeDriver: false,
+      }),
+      Animated.timing(widthHeight, {
+        toValue: 35,
+        duration: 10,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const animatedMoved = (e, id) => {
+    Animated.sequence([
+      Animated.timing(animatedm, {
+        toValue: {
+          x: id > 4 ? 220 : -85,
+          y: e.nativeEvent.pageX - 30,
+        },
+        duration: 0,
+        useNativeDriver: false,
+        // easing: Easing.linear,
+      }),
+      Animated.timing(animatedm, {
+        toValue: {
+          x: -530,
+          y: 250,
+        },
+        duration: id > 4 ? 1800 : 2000,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const fadeOut = () => {
+    Animated.sequence([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: false,
+      }),
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 2400,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const animatedM = (e, id) => {
+    Animated.parallel([animatedMoved(e, id), fadeOut(), zoomOut()]).start();
+  };
+
+  const {navigation, route, cartItems, loadItemToCart, addItemToCart} = props;
   const {navigate, goBack} = navigation;
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  // const dispatch = useDispatch();
+  const fetchCart = async () => {
+    const exists = await AsyncStorage.getItem('Product');
+    if (!exists) {
+      await AsyncStorage.setItem('Product', JSON.stringify([]));
+    } else {
+      const data = JSON.parse(exists);
+      loadItemToCart(data);
+    }
+  };
 
   const [items, setItems] = useState([
     {
@@ -40,7 +124,7 @@ const Clothings = props => {
 
   const [product, setProduct] = useState([
     {
-      id: 1,
+      id: 3,
       url: 'https://i.imgur.com/gsE8Iwo.png',
       name: 'Cassual Dresses',
       size: '2',
@@ -48,7 +132,7 @@ const Clothings = props => {
       amount: 1,
     },
     {
-      id: 2,
+      id: 4,
       url: 'https://i.imgur.com/zD2vlPK.png',
       name: 'Menswear',
       size: '3',
@@ -56,7 +140,7 @@ const Clothings = props => {
       amount: 1,
     },
     {
-      id: 3,
+      id: 5,
       url: 'https://i.imgur.com/hMEP0KA.png',
       name: 'Jeans Regular',
       size: '3',
@@ -64,7 +148,7 @@ const Clothings = props => {
       amount: 1,
     },
     {
-      id: 4,
+      id: 6,
       url: 'https://i.imgur.com/mZkjDiD.png',
       name: 'Jeans Slim',
       size: '3',
@@ -87,71 +171,71 @@ const Clothings = props => {
           navigation.getParent().openDrawer();
         }}
       />
-      <View>
-        <View
-          style={{
-            height: 50,
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-          }}>
-          {items.map(item => (
-            <TouchableOpacity
-              key={item.id}
-              onPress={() => {
-                let newItems = items.map(itemN => {
-                  return {...itemN, isSelected: item.id == itemN.id};
+
+      <View
+        style={{
+          height: 50,
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          flexDirection: 'row',
+        }}>
+        {items.map(item => (
+          <TouchableOpacity
+            key={item.id}
+            onPress={() => {
+              let newItems = items.map(itemN => {
+                return {...itemN, isSelected: item.id == itemN.id};
+              });
+              setItems(newItems);
+              if (item.id == 1) {
+                let newItem2 = items.map(item2 => {
+                  if (item2.id == 1) {
+                    return {...item2, isSelected: true};
+                  }
+                  return {...item2, isSelected: false};
                 });
-                setItems(newItems);
-                if (item.id == 1) {
-                  let newItem2 = items.map(item2 => {
-                    if (item2.id == 1) {
-                      return {...item2, isSelected: true};
-                    }
-                    return {...item2, isSelected: false};
-                  });
-                  setItems(newItem2);
-                } else if (item.id == '2') {
-                  let newItem3 = items.map(item3 => {
-                    if (item3.id == 2) {
-                      return {...item3, isSelected: true};
-                    }
-                    return {...item3, isSelected: false};
-                  });
-                  setItems(newItem3);
-                } else if (item.id == '3') {
-                  let newItem3 = items.map(item3 => {
-                    if (item3.id == 3) {
-                      return {...item3, isSelected: true};
-                    }
-                    return {...item3, isSelected: false};
-                  });
-                  setItems(newItem3);
-                }
+                setItems(newItem2);
+              } else if (item.id == '2') {
+                let newItem3 = items.map(item3 => {
+                  if (item3.id == 2) {
+                    return {...item3, isSelected: true};
+                  }
+                  return {...item3, isSelected: false};
+                });
+                setItems(newItem3);
+              } else if (item.id == '3') {
+                let newItem3 = items.map(item3 => {
+                  if (item3.id == 3) {
+                    return {...item3, isSelected: true};
+                  }
+                  return {...item3, isSelected: false};
+                });
+                setItems(newItem3);
+              }
+            }}>
+            <View
+              style={{
+                height: 31,
+                backgroundColor:
+                  item.isSelected == true ? '#569cb4' : '#f1f3f3',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingHorizontal: 16,
+                borderRadius: 18,
+                shadowColor: '#0c2d38',
+                elevation: item.isSelected == true ? 30 : 0,
               }}>
-              <View
+              <Text
                 style={{
-                  height: 31,
-                  backgroundColor:
-                    item.isSelected == true ? '#569cb4' : '#f1f3f3',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  paddingHorizontal: 16,
-                  borderRadius: 18,
-                  shadowColor: '#0c2d38',
-                  elevation: item.isSelected == true ? 30 : 0,
+                  color: item.isSelected == true ? 'white' : '#111',
                 }}>
-                <Text
-                  style={{
-                    color: item.isSelected == true ? 'white' : '#111',
-                  }}>
-                  {item.name}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
+                {item.name}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ))}
       </View>
+
       <ScrollView>
         {items[0].isSelected == true ? (
           <View style={{}}>
@@ -197,7 +281,6 @@ const Clothings = props => {
             </View>
             <View
               style={{
-                // flex: 1,
                 marginBottom: 8,
               }}>
               <View
@@ -206,22 +289,22 @@ const Clothings = props => {
                   flex: 1,
                 }}>
                 {product.map(pro =>
-                  pro.id < 3 ? (
+                  pro.id < 5 ? (
                     <TouchableOpacity
                       key={pro.id}
                       pro={pro}
                       onPress={() => {
-                        // navigation.navigate('Product', {
-                        //   product: pro,
-                        //   products: cartItems,
-                        // });
+                        navigation.navigate('Product', {
+                          product: pro,
+                          products: cartItems,
+                        });
                       }}
                       style={{
-                        backgroundColor: pro.id == 1 ? '#bcffa4' : '#a4dfff',
+                        backgroundColor: pro.id == 3 ? '#bcffa4' : '#a4dfff',
                         height: 280,
                         width: '45%',
-                        marginStart: pro.id == 1 ? 15 : 6,
-                        marginEnd: pro.id == 1 ? 6 : 15,
+                        marginStart: pro.id == 3 ? 15 : 6,
+                        marginEnd: pro.id == 3 ? 6 : 15,
                         borderRadius: 8,
                         borderLeftColor: '#e7eeee',
                         borderLeftWidth: 1.5,
@@ -268,8 +351,8 @@ const Clothings = props => {
                           right: 10,
                         }}
                         onPress={e => {
-                          // addItemToCart(pro);
-                          // animatedM(e);
+                          addItemToCart(pro);
+                          animatedM(e, pro.id);
                         }}>
                         <Image
                           source={images.cart}
@@ -291,17 +374,22 @@ const Clothings = props => {
                 flexDirection: 'row',
               }}>
               {product.map(pro =>
-                pro.id > 2 && pro.id < 5 ? (
+                pro.id > 4 && pro.id < 7 ? (
                   <TouchableOpacity
                     key={pro.id}
                     pro={pro}
-                    onPress={() => {}}
+                    onPress={() => {
+                      navigation.navigate('Product', {
+                        product: pro,
+                        products: cartItems,
+                      });
+                    }}
                     style={{
-                      backgroundColor: pro.id == 3 ? '#edb1ff' : '#a5b3e0',
+                      backgroundColor: pro.id == 5 ? '#edb1ff' : '#a5b3e0',
                       height: 280,
                       width: '45%',
-                      marginStart: pro.id == 3 ? 15 : 6,
-                      marginEnd: pro.id == 3 ? 6 : 15,
+                      marginStart: pro.id == 5 ? 15 : 6,
+                      marginEnd: pro.id == 5 ? 6 : 15,
                       borderRadius: 8,
                       borderLeftColor: '#e7eeee',
                       borderLeftWidth: 1.5,
@@ -345,11 +433,12 @@ const Clothings = props => {
                       style={{
                         position: 'absolute',
                         bottom: 10,
-                        right: 10,
+                        right: 5,
+                        padding: 10,
                       }}
                       onPress={e => {
-                        // addItemToCart(pro);
-                        // animatedM(e);
+                        addItemToCart(pro);
+                        animatedM(e, pro.id);
                       }}>
                       <Image
                         source={images.cart}
@@ -362,6 +451,25 @@ const Clothings = props => {
                   </TouchableOpacity>
                 ) : null,
               )}
+              <Animated.View
+                style={{
+                  position: 'absolute',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: animatedm.x,
+                  marginStart: animatedm.y,
+                  opacity: fadeAnim,
+                  height: widthHeight,
+                  width: widthHeight,
+                }}>
+                <Image
+                  source={images.cart}
+                  style={{
+                    height: 35,
+                    width: 35,
+                  }}
+                />
+              </Animated.View>
             </View>
           </View>
         ) : items[1].isSelected == true ? (
@@ -374,6 +482,20 @@ const Clothings = props => {
   );
 };
 
-export default Clothings;
+const mapStateToProps = state => {
+  return {
+    cartItems: state,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadItemToCart: product =>
+      dispatch({type: 'LOAD_PRODUCT', payload: product}),
+
+    addItemToCart: product => dispatch({type: 'ADD_PRODUCT', payload: product}),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Clothings);
 
 const styles = StyleSheet.create({});

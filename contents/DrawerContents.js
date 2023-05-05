@@ -105,6 +105,9 @@ const DrawerContents = props => {
                 };
               });
               setBtnSettings(newButtonSettings);
+              if (typeButton.name == 'Bags & Accessory') {
+                navigation.navigate('BagsAndAccessory');
+              }
             }}
           />
         ))}

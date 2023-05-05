@@ -6,69 +6,71 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useState, useRef, useEffect} from 'react';
-import {images} from '../constants';
-import {CountDown} from 'react-native-customizable-countdown';
 import {UIHeader} from '../components';
+import {images} from '../constants';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Shoes = props => {
+const Sandals = props => {
+  const height = Dimensions.get('window').height;
+  const width = Dimensions.get('window').width;
+
   const [product, setProduct] = useState([
     {
-      id: 13,
-      url: 'https://i.imgur.com/TlgVku8.png',
-      name: 'Nike Air DA1925-003',
+      id: 19,
+      url: 'https://i.imgur.com/vjZAALF.png',
+      name: 'Nike Oneonta Be True',
       size: '2',
-      price: 150.1,
+      price: 455.1,
       amount: 1,
     },
     {
-      id: 14,
-      url: 'https://i.imgur.com/OwR0Rix.png',
-      name: 'Nike Air MaxSSS B.Gray',
+      id: 20,
+      url: 'https://i.imgur.com/aPCwqZO.png',
+      name: 'Nike Canyon M',
       size: '3',
-      price: 131.22,
+      price: 322.22,
       amount: 1,
     },
     {
-      id: 15,
-      url: 'https://i.imgur.com/7ejIyVm.png',
-      name: "Nike Air Mx.C 'BG'",
+      id: 21,
+      url: 'https://i.imgur.com/yPbS3HX.png',
+      name: "Nike Sunray Protect 2'",
       size: '2',
-      price: 106.1,
+      price: 156.1,
       amount: 1,
     },
     {
-      id: 16,
-      url: 'https://i.imgur.com/XhZRWpY.png',
-      name: 'Barely Rose',
+      id: 22,
+      url: 'https://i.imgur.com/df825ij.png',
+      name: 'Nike Air Max Koko',
       size: '3',
-      price: 200.99,
+      price: 338.99,
       amount: 1,
     },
     {
-      id: 17,
-      url: 'https://i.imgur.com/tXWV1jB.png',
-      name: 'Nike Forgot Name',
+      id: 23,
+      url: 'https://i.imgur.com/aQh7DIz.png',
+      name: 'Nike Vista',
       size: '3',
-      price: 89.99,
+      price: 139,
       amount: 1,
     },
     {
-      id: 18,
-      url: 'https://i.imgur.com/gTflGox.png',
-      name: 'OZJI Casual',
+      id: 24,
+      url: 'https://i.imgur.com/Eyp5TvF.png',
+      name: 'Nike Icon Classic',
       size: '3',
-      price: 90,
+      price: 290,
       amount: 1,
     },
   ]);
-
-  const width = Dimensions.get('window').width;
 
   const widthHeight = useRef(new Animated.Value(35)).current;
   const animatedm = useRef(
@@ -99,7 +101,7 @@ const Shoes = props => {
     Animated.sequence([
       Animated.timing(animatedm, {
         toValue: {
-          x: id < 15 ? 220 : id < 17 ? 460 : 700,
+          x: id < 21 ? 220 : id < 23 ? 460 : 700,
           y: e.nativeEvent.pageX - 30,
         },
         duration: 0,
@@ -151,12 +153,14 @@ const Shoes = props => {
 
   const {navigation, route, cartItems, loadItemToCart, addItemToCart} = props;
   const {navigate, goBack} = navigation;
-
   return (
-    <View style={{flex: 1}}>
+    <View
+      style={{
+        flex: 1,
+      }}>
       <UIHeader
-        colorOfWoman={'Sneaker'}
-        title="Sneaker KW"
+        colorOfWoman={'Sandals'}
+        title="Sandals KW"
         iconadjust={images.adjust}
         onPressZero={() => {
           navigation.openDrawer();
@@ -167,41 +171,38 @@ const Shoes = props => {
       />
       <View
         style={{
-          alignItems: 'center',
+          height: height * 0.1,
+          borderBottomColor: '#ececec',
+          borderBottomWidth: 3,
         }}>
-        <CountDown
-          initialSeconds={70}
-          onTimeOut={() => {
-            console.log('Time Out');
-          }}
-          digitFontSize={30}
-          labelFontSize={20}
-          width={300}
-          height={100}
-          activeInBackground={true}
-          hoursLabel={'Come to'}
-          minutesLabel={'out event'}
-          secondsLabel={'KW'}
-          enableLabel={true}
-          hoursBackgroundStyle={{
-            borderWidth: 0,
-            backgroundColor: null,
-          }}
-          minutesBackgroundStyle={{
-            borderWidth: 0,
-            backgroundColor: null,
-          }}
-          secondsBackgroundStyle={{
-            borderWidth: 0,
-            backgroundColor: null,
-          }}
-          labelColor="#23a05d"
-          labelFontWeight="bold"
-          labelPosition="top"
-          digitColor="#68dbaf"
-        />
-      </View>
+        <View
+          style={{
+            backgroundColor: '#e4e4e4',
+            height: height * 0.065,
+            flexDirection: 'row',
+            alignItems: 'center',
+            borderRadius: 15,
+            marginTop: 10,
+            marginHorizontal: 8,
+          }}>
+          <View
+            style={{
+              marginHorizontal: 21,
+            }}>
+            <Icon name="search" size={25} color="#776780" />
+          </View>
 
+          <TextInput
+            style={{
+              flex: 1,
+              fontSize: 16,
+              fontWeight: '500',
+              marginHorizontal: 5,
+            }}
+            placeholder="Search a item..."
+            placeholderTextColor={'#776780'}></TextInput>
+        </View>
+      </View>
       <ScrollView
         contentContainerStyle={{
           flexDirection: 'row',
@@ -216,18 +217,18 @@ const Shoes = props => {
             onPress={() => {}}
             style={{
               backgroundColor:
-                pro.id == 13
-                  ? '#a4efc0'
-                  : pro.id == 14
-                  ? '#a9efe6'
-                  : pro.id == 15
-                  ? '#cbcbcb'
-                  : pro.id == 16
-                  ? '#ffd2d2'
-                  : pro.id == 17
-                  ? '#dcc6ff'
-                  : pro.id == 18
-                  ? '#d7e3e1'
+                pro.id == 19
+                  ? '#ecd9fe'
+                  : pro.id == 20
+                  ? '#d0e7f7'
+                  : pro.id == 21
+                  ? '#d9cffa'
+                  : pro.id == 22
+                  ? '#cdffc8'
+                  : pro.id == 23
+                  ? '#f2dada'
+                  : pro.id == 24
+                  ? '#fdffd5'
                   : '#afb4db',
               height: 235,
               width: width * 0.43,
@@ -275,24 +276,26 @@ const Shoes = props => {
             <TouchableOpacity
               style={{
                 position: 'absolute',
-                bottom: 6,
-                right: 3,
-                padding: 10,
+                bottom: 10,
+                right: 10,
+                padding: 11,
               }}
               onPress={e => {
                 addItemToCart(pro);
                 animatedM(e, pro.id);
               }}>
               <Image
-                source={images.cart}
+                source={images.add_cart}
                 style={{
-                  height: 25,
-                  width: 25,
+                  tintColor: '#b687ef',
+                  height: 28,
+                  width: 28,
                 }}
               />
             </TouchableOpacity>
           </TouchableOpacity>
         ))}
+
         <Animated.View
           style={{
             position: 'absolute',
@@ -305,10 +308,11 @@ const Shoes = props => {
             width: widthHeight,
           }}>
           <Image
-            source={images.cart}
+            source={images.add_cart}
             style={{
-              height: 35,
-              width: 35,
+              tintColor: '#b687ef',
+              height: 33,
+              width: 33,
             }}
           />
         </Animated.View>
@@ -331,6 +335,6 @@ const mapDispatchToProps = dispatch => {
     addItemToCart: product => dispatch({type: 'ADD_PRODUCT', payload: product}),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Shoes);
+export default connect(mapStateToProps, mapDispatchToProps)(Sandals);
 
 const styles = StyleSheet.create({});

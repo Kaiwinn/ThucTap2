@@ -103,7 +103,7 @@ const CheckOut = props => {
             }}>
             <ImageBackground
               source={{
-                uri: 'https://indianembassy-tm.org/wp-content/uploads/2019/11/black.jpg',
+                uri: 'https://i.imgur.com/LHSbL12.jpg',
               }}
               style={{
                 flex: 1,
@@ -143,7 +143,7 @@ const CheckOut = props => {
                   style={{
                     fontSize: 21,
                     fontWeight: 'bold',
-                    color: '#fff',
+                    color: '#2a2a2a',
                   }}>
                   Have a Coupon?
                 </Text>
@@ -175,7 +175,7 @@ const CheckOut = props => {
                       marginStart: 23,
                     }}
                     placeholder="Coupon Code here"
-                    placeholderTextColor={'#fff'}></TextInput>
+                    placeholderTextColor={'#2a2a2a'}></TextInput>
                 </View>
                 <TouchableOpacity
                   style={{

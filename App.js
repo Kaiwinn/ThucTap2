@@ -89,7 +89,6 @@ const App = props => {
 
   const {navigation, route, cartItems, loadItemToCart, addItemToCart} = props;
 
-  // const dispatch = useDispatch();
   const fetchCart = async () => {
     const exists = await AsyncStorage.getItem('Product');
     if (!exists) {
@@ -211,7 +210,8 @@ const App = props => {
                   style={{
                     position: 'absolute',
                     bottom: 10,
-                    right: 10,
+                    right: 3,
+                    padding: 10,
                   }}
                   onPress={e => {
                     // setPageY(e.nativeEvent.pageX - 30);

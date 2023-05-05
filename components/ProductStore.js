@@ -105,7 +105,6 @@ const ProductStore = props => {
                     marginVertical: 10,
                   }}>
                   <Text
-                    // numberOfLines={1}
                     style={{
                       color: 'black',
                       fontSize: 16,

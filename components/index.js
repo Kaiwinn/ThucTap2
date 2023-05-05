@@ -7,6 +7,9 @@ import UITagHeader from './UITagHeader';
 import UIHeadManOrWoman from './UIHeadManOrWoman';
 import ProductStore from './ProductStore';
 import ShoppingCartIcon from './ShoppingCartIcon';
+import SlippersChelsea from './SlippersChelsea';
+import SlippersLong from './SlippersLong';
+import SlippersLaceUp from './SlippersLaceUp';
 
 export {
   UIFooterHome,
@@ -18,4 +21,7 @@ export {
   UIHeadManOrWoman,
   ProductStore,
   ShoppingCartIcon,
+  SlippersChelsea,
+  SlippersLong,
+  SlippersLaceUp,
 };

@@ -14,6 +14,9 @@ import Login from './Login';
 import Register from './Register';
 import ShortFlowing from './ShortFlowing';
 import ShortNearby from './ShortNearby';
+import Sandals from './Sandals';
+import Boots from './Boots';
+import Slippers from './Slippers';
 
 export {
   StoreShope,
@@ -32,4 +35,7 @@ export {
   Register,
   ShortFlowing,
   ShortNearby,
+  Sandals,
+  Boots,
+  Slippers,
 };

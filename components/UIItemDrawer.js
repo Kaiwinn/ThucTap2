@@ -73,6 +73,12 @@ const UIItemDrawer = props => {
                   navigation.navigate('Clothings');
                 } else if (sub_menu?.name == 'Sneakers') {
                   navigation.navigate('Shoes');
+                } else if (sub_menu?.name == 'Sandals') {
+                  navigation.navigate('Sandals');
+                } else if (sub_menu?.name == 'Boots') {
+                  navigation.navigate('Boots');
+                } else if (sub_menu?.name == 'Slippers') {
+                  navigation.navigate('Slippers');
                 }
               }}
               key={sub_menu?.name}

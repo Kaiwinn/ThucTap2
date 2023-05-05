@@ -181,7 +181,6 @@ const Woman = props => {
           <View
             style={{
               paddingVertical: 15,
-              // height: 200,
               elevation: 10,
               backgroundColor: '#477572',
             }}>
@@ -192,8 +191,8 @@ const Woman = props => {
                     height: 38,
                     marginVertical: 5,
                     marginHorizontal: 20,
-                    backgroundColor: '#3d5457',
-                    borderRadius: 3,
+                    backgroundColor: '#04140c',
+                    borderRadius: 5,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>

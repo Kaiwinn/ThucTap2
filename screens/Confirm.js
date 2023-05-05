@@ -10,6 +10,9 @@ import {
 import React, {useState} from 'react';
 import {images} from '../constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {connect} from 'react-redux';
+import {useEffect} from 'react';
+import ITProOfConform from '../components/ITProOfConform';
 
 const Confirm = props => {
   const [listProduct, setListProduct] = useState([
@@ -44,6 +47,19 @@ const Confirm = props => {
     {name: 'Add to Wishlist', isSelected: false},
     {name: 'Add to Cart', isSelected: true},
   ]);
+  const {cartItems, removeItem} = props;
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    const objects = cartItems;
+    const sum = objects.reduce(
+      (previousValue, currentValue) =>
+        previousValue + currentValue.amount * currentValue.price,
+      0,
+    );
+    setTotalPrice(sum);
+  });
+
   return (
     <View
       style={{
@@ -113,143 +129,7 @@ const Confirm = props => {
             flex: 1,
             marginTop: 10,
           }}>
-          {listProduct.map(product => (
-            <View
-              key={product.id}
-              style={{
-                height: 91,
-                backgroundColor: 'white',
-                marginVertical: 10,
-                marginHorizontal: 20,
-                elevation: 5,
-                paddingStart: 20,
-                paddingEnd: 15,
-                flexDirection: 'row',
-              }}>
-              <TouchableWithoutFeedback>
-                <View
-                  style={{
-                    position: 'absolute',
-                    right: 0,
-                    height: 25,
-                    width: 25,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Image
-                    style={{
-                      height: 11,
-                      width: 11,
-                      tintColor: '#c9c9c9',
-                    }}
-                    source={images.close2}
-                  />
-                </View>
-              </TouchableWithoutFeedback>
-
-              <View
-                style={{
-                  height: '100%',
-                  width: 90,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <View
-                  style={{
-                    height: 56,
-                    width: 56,
-                    borderRadius: 40,
-                    elevation: 8,
-                  }}>
-                  <Image
-                    source={product.image}
-                    style={{
-                      height: 56,
-                      width: 56,
-                      borderRadius: 40,
-                      backgroundColor: '#e8e8e8',
-                    }}
-                    resizeMode="contain"
-                  />
-                </View>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  marginStart: 10,
-                  marginVertical: 10,
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontSize: 16,
-                    fontWeight: '500',
-                  }}>
-                  {product.name}
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                  }}>
-                  <View
-                    style={{
-                      height: 20,
-                      width: 65,
-                      backgroundColor: '#e4e4e4',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderRadius: 3,
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        color: '#3a3a3a',
-                        fontWeight: 'bold',
-                      }}>
-                      SIZE: {product.size}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      marginStart: 5,
-                      height: 20,
-                      width: 55,
-                      backgroundColor: '#e4e4e4',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderRadius: 3,
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        color: '#3a3a3a',
-                        fontWeight: 'bold',
-                      }}>
-                      x{product.amount}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  height: '100%',
-                  width: 50,
-                  marginEnd: 3,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{
-                    fontWeight: 'bold',
-                    fontSize: 13,
-                    color: '#aeaeae',
-                  }}>
-                  $ {product.price}
-                </Text>
-              </View>
-            </View>
-          ))}
+          <ITProOfConform productss={cartItems} onPressDelete={removeItem} />
           <View
             style={{
               height: 120,
@@ -335,7 +215,7 @@ const Confirm = props => {
                     fontWeight: 'bold',
                     color: '#ff9b74',
                   }}>
-                  $ 300, 00
+                  $ {totalPrice.toFixed(2)}
                 </Text>
               </View>
             </View>
@@ -378,23 +258,24 @@ const Confirm = props => {
                   width: 100,
                   resizeMode: 'contain',
                 }}
+                source={images.vietcombank}
+              />
+
+              <Image
+                style={{
+                  height: 70,
+                  width: 100,
+                  resizeMode: 'contain',
+                }}
+                source={images.momo}
+              />
+              <Image
+                style={{
+                  height: 70,
+                  width: 100,
+                  resizeMode: 'contain',
+                }}
                 source={images.visa}
-              />
-              <Image
-                style={{
-                  height: 70,
-                  width: 100,
-                  resizeMode: 'contain',
-                }}
-                source={images.paypal}
-              />
-              <Image
-                style={{
-                  height: 70,
-                  width: 100,
-                  resizeMode: 'contain',
-                }}
-                source={images.amazon}
               />
             </View>
           </View>
@@ -412,6 +293,18 @@ const Confirm = props => {
   );
 };
 
-export default Confirm;
+const mapStateToProps = state => {
+  return {
+    cartItems: state,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    removeItem: product => dispatch({type: 'REMOVE_PRODUCT', payload: product}),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Confirm);
 
 const styles = StyleSheet.create({});

@@ -49,7 +49,18 @@ const UIHeader = props => {
       <View
         style={{
           height: 55,
-          backgroundColor: colorOfWoman == 'Woman' ? '#477572' : color,
+          backgroundColor:
+            colorOfWoman == 'Woman'
+              ? '#477572'
+              : colorOfWoman == 'Sneaker'
+              ? '#5affac'
+              : colorOfWoman == 'Sandals'
+              ? '#eb9bec'
+              : colorOfWoman == 'Slippers'
+              ? '#d3d4ff'
+              : colorOfWoman == 'Boots'
+              ? '#fceceb'
+              : color,
           flexDirection: 'row',
         }}>
         <TouchableOpacity

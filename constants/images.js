@@ -25,9 +25,7 @@ export default {
   hanger: require('../assets/hanger.png'),
   close2: require('../assets/close2.png'),
   check: require('../assets/check.png'),
-  paypal: require('../assets/paypal.png'),
   visa: require('../assets/visa.png'),
-  amazon: require('../assets/amazon.png'),
   product1: require('../assets/product1.png'),
   plus: require('../assets/plus.png'),
   cross: require('../assets/cross.png'),
@@ -45,4 +43,7 @@ export default {
   dots: require('../assets/dots.png'),
   like2: require('../assets/like2.png'),
   chien2: require('../assets/chien2.jpg'),
+  add_cart: require('../assets/add_cart.png'),
+  vietcombank: require('../assets/vietcombank.png'),
+  momo: require('../assets/momo.png'),
 };

@@ -10,60 +10,59 @@ import {
   View,
 } from 'react-native';
 import React, {useState, useRef, useEffect} from 'react';
-import {images} from '../constants';
-import {CountDown} from 'react-native-customizable-countdown';
 import {UIHeader} from '../components';
+import {images} from '../constants';
 import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Shoes = props => {
+const Boots = props => {
   const [product, setProduct] = useState([
     {
-      id: 13,
-      url: 'https://i.imgur.com/TlgVku8.png',
-      name: 'Nike Air DA1925-003',
+      id: 25,
+      url: 'https://i.imgur.com/Kb4WOyK.png',
+      name: 'Nike Zoom Mercurial',
       size: '2',
-      price: 150.1,
+      price: 110.0,
       amount: 1,
     },
     {
-      id: 14,
-      url: 'https://i.imgur.com/OwR0Rix.png',
-      name: 'Nike Air MaxSSS B.Gray',
+      id: 26,
+      url: 'https://i.imgur.com/aTT3IZs.png',
+      name: 'Nike Mercurial Vapor 15',
       size: '3',
-      price: 131.22,
+      price: 50.5,
       amount: 1,
     },
     {
-      id: 15,
-      url: 'https://i.imgur.com/7ejIyVm.png',
-      name: "Nike Air Mx.C 'BG'",
+      id: 27,
+      url: 'https://i.imgur.com/JMnnbJw.png',
+      name: "phantom GX'",
       size: '2',
-      price: 106.1,
+      price: 200.0,
       amount: 1,
     },
     {
-      id: 16,
-      url: 'https://i.imgur.com/XhZRWpY.png',
-      name: 'Barely Rose',
+      id: 28,
+      url: 'https://i.imgur.com/Q3YoffQ.png',
+      name: 'Mercurial Dream',
       size: '3',
-      price: 200.99,
+      price: 450.99,
       amount: 1,
     },
     {
-      id: 17,
-      url: 'https://i.imgur.com/tXWV1jB.png',
-      name: 'Nike Forgot Name',
+      id: 29,
+      url: 'https://i.imgur.com/SLWyrDp.png',
+      name: 'Mercurial Vapor 15',
       size: '3',
-      price: 89.99,
+      price: 119.99,
       amount: 1,
     },
     {
-      id: 18,
-      url: 'https://i.imgur.com/gTflGox.png',
-      name: 'OZJI Casual',
+      id: 30,
+      url: 'https://i.imgur.com/t2pYi0W.png',
+      name: 'Academy MG',
       size: '3',
-      price: 90,
+      price: 150,
       amount: 1,
     },
   ]);
@@ -153,10 +152,14 @@ const Shoes = props => {
   const {navigate, goBack} = navigation;
 
   return (
-    <View style={{flex: 1}}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#fceceb',
+      }}>
       <UIHeader
-        colorOfWoman={'Sneaker'}
-        title="Sneaker KW"
+        colorOfWoman={'Boots'}
+        title="Boots"
         iconadjust={images.adjust}
         onPressZero={() => {
           navigation.openDrawer();
@@ -165,43 +168,24 @@ const Shoes = props => {
           navigation.getParent().openDrawer();
         }}
       />
+      <Text
+        style={{
+          marginVertical: 5,
+          alignSelf: 'center',
+          fontSize: 16,
+          color: '#1b1b1b',
+          fontWeight: 'bold',
+        }}>
+        Boots
+      </Text>
       <View
         style={{
-          alignItems: 'center',
-        }}>
-        <CountDown
-          initialSeconds={70}
-          onTimeOut={() => {
-            console.log('Time Out');
-          }}
-          digitFontSize={30}
-          labelFontSize={20}
-          width={300}
-          height={100}
-          activeInBackground={true}
-          hoursLabel={'Come to'}
-          minutesLabel={'out event'}
-          secondsLabel={'KW'}
-          enableLabel={true}
-          hoursBackgroundStyle={{
-            borderWidth: 0,
-            backgroundColor: null,
-          }}
-          minutesBackgroundStyle={{
-            borderWidth: 0,
-            backgroundColor: null,
-          }}
-          secondsBackgroundStyle={{
-            borderWidth: 0,
-            backgroundColor: null,
-          }}
-          labelColor="#23a05d"
-          labelFontWeight="bold"
-          labelPosition="top"
-          digitColor="#68dbaf"
-        />
-      </View>
-
+          height: 1,
+          backgroundColor: '#bdbdbd',
+          marginHorizontal: 180,
+          marginTop: 3,
+          marginBottom: 6,
+        }}></View>
       <ScrollView
         contentContainerStyle={{
           flexDirection: 'row',
@@ -215,20 +199,7 @@ const Shoes = props => {
             pro={pro}
             onPress={() => {}}
             style={{
-              backgroundColor:
-                pro.id == 13
-                  ? '#a4efc0'
-                  : pro.id == 14
-                  ? '#a9efe6'
-                  : pro.id == 15
-                  ? '#cbcbcb'
-                  : pro.id == 16
-                  ? '#ffd2d2'
-                  : pro.id == 17
-                  ? '#dcc6ff'
-                  : pro.id == 18
-                  ? '#d7e3e1'
-                  : '#afb4db',
+              backgroundColor: '#f1c8f6',
               height: 235,
               width: width * 0.43,
               marginStart: pro.id % 2 == 1 ? width * 0.045 : width * 0.047,
@@ -331,6 +302,6 @@ const mapDispatchToProps = dispatch => {
     addItemToCart: product => dispatch({type: 'ADD_PRODUCT', payload: product}),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Shoes);
+export default connect(mapStateToProps, mapDispatchToProps)(Boots);
 
 const styles = StyleSheet.create({});
